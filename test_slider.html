@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+
+    <title>Slider</title>
+    <style>
+        .wrapper{
+            min-height: 100vh;
+            width: 100%;
+        }
+        .container{
+            margin: auto;
+            width: 50%;
+            background-color: antiquewhite;
+            position: relative;
+        }
+        .siema{
+            
+            width: 100%;
+        }
+
+        img{
+            display: block;
+            object-fit: cover;
+            height: 20rem;
+            width: 100%;
+            transform-origin: 50% 65%;
+            transition: transform 5s ease-in-out;
+        }
+
+         img:hover{
+            transform: scale(1.5);
+        }
+
+        /* @keyframes scale {
+            from{
+                transform: scale(0);
+            }
+
+            to{
+                transform: scale(50%);
+            }
+        } */
+
+        .btn-slider{
+            position: absolute;
+        }
+        .btn-slider:focus,
+        .btn-slider:hover{
+            background-color: lime;
+        }
+        .next{
+            right: 0;
+        }
+        i{
+            text-shadow: 0 0 6px rgba(0,0,0,0.3);
+            color: white
+        }
+
+            .dots {
+    display: flex;
+    justify-content: center;
+    }
+
+        .dots__item {
+        width: 15px;
+        height: 15px;
+        margin: 0 .5rem;
+        border: 0;
+        background-color: #ccc;
+        border-radius: 50%;
+        outline: 0;
+        cursor: pointer;
+        }
+
+        .dots__item--active {
+        background: blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="siema">
+                <img class="siema__img" src="./assets/slider_mock/1.jpg" alt="">
+                <img class="siema__img" src="./assets/slider_mock/2.jpg" alt="">
+                <img class="siema__img" src="./assets/slider_mock/3.jpg" alt="">
+                <img class="siema__img" src="./assets/slider_mock/4.jpg" alt="">
+
+            </div>
+            <button class="btn-slider pre" tabindex="1">Pre</button>
+            <button class="btn-slider next">Next</button>
+        </div>
+        <i class="fas fa-chevron-left fa-4x"></i>
+
+    </div>
+</body>
+<script src="./lib/siema.min.js"></script>
+<script>
+    // const mySlider = new Siema({
+    //     loop:true,
+    // });
+
+
+
+    //slide control
+    // Siema.prototype.addPagination = function(){
+    //     for(let i =0; i < this.innerElements.length; i++){
+    //         const btn = document.createElement('button');
+    //         btn.textContent = i;
+    //         btn.addEventListener("click", ()=>{
+    //             this.goTo(i);
+    //         });
+    //         this.selector.appendChild(btn);
+    //     }   
+    // }
+
+    // mySlider.addPagination();
+
+    //slide control dots
+
+        // extend a Siema class by two methods
+        // addDots - to create a markup for dots
+        // updateDots - to update classes on dots on change callback
+    class SiemaWithDots extends Siema {
+
+    addDots() {
+    // create a contnier for all dots
+    // add a class 'dots' for styling reason
+    this.dots = document.createElement('div');
+    this.dots.classList.add('dots');
+
+    // loop through slides to create a number of dots
+    for(let i = 0; i < this.innerElements.length; i++) {
+        // create a dot
+        const dot = document.createElement('button');
+
+        // add a class to dot
+        dot.classList.add('dots__item');
+
+        // add an event handler to each of them
+        dot.addEventListener('click', ()=>{
+        // setInterval(function(){this.goTo(i)
+        // console.log("go to" + i)},5000);
+        this.goTo(i);
+        })
+
+        // append dot to a container for all of them
+        this.dots.appendChild(dot);
+    }
+
+    function clearTimer(){
+        clearInterval(sliderTimer);
+        console.log("clear!")
+    }
+
+    // add the container full of dots after selector
+    this.selector.parentNode.insertBefore(this.dots, this.selector.nextSibling);
+    }
+
+    updateDots() {
+    // loop through all dots
+    for(let i = 0; i < this.dots.querySelectorAll('button').length; i++) {
+        // if current dot matches currentSlide prop, add a class to it, remove otherwise
+        const addOrRemove = this.currentSlide === i ? 'add' : 'remove';
+        this.dots.querySelectorAll('button')[i].classList[addOrRemove]('dots__item--active');
+    }
+    }
+    }
+
+    // instantiate new extended Siema
+    const mySiemaWithDots = new SiemaWithDots({
+        loop:true,
+        duration: 1000,
+        easing: 'ease-in-out',
+
+    // on init trigger method created above
+    onInit: function(){
+    this.addDots();
+    this.updateDots();
+    },
+
+    // on change trigger method created above
+    onChange: function(){
+    this.updateDots()
+    },
+    });
+
+    const sliderTimer= setInterval(()=> mySiemaWithDots.next(), 2000 )
+    const btn_pre = document.querySelector('.btn-slider.pre');
+    const btn_next = document.querySelector('.btn-slider.next');
+    const dot = document.querySelectorAll('.dots > .dots__item');
+    dot.forEach((e)=> e.addEventListener("click", ()=>{
+        clearInterval(sliderTimer);
+    }));
+
+    btn_pre.addEventListener('click', () => {
+        mySiemaWithDots.prev();
+        clearInterval(sliderTimer);
+    });
+    btn_next.addEventListener('click', () => 
+    {
+        mySiemaWithDots.next();
+        clearInterval(sliderTimer);
+    });
+    // btn_next.addEventListener('focus', ()=>{
+    //     clearInterval(sliderTimer);
+    // });
+
+    const img = document.querySelectorAll('.siema__img');
+    img.forEach((e)=>{
+        console.log(e)
+    })
+    
+    //SECTION 
+    // ANCHOR Select all
+    // img.forEach((e)=> console.log(e))
+
+    // ANCHOR Selectn't first and last 
+    for(let i  = 1; i < img.length-1; i++){
+        // console.log(img[i]);
+        img[i].addEventListener("mouseover", function(){
+            clearInterval(sliderTimer);
+        });
+    }
+    //!SECTION
+
+
+    // SiemaWithDots.prototype.autoplay = function(duration=2000,reverse){
+    //     if (isNaN(duration)){throw new TypeError();}
+
+    //     if (reverse !== undefined && reverse){
+    //     sliderTimer = setInterval(()=> this.prev(), duration ) } else{
+    //         sliderTimer = setInterval(()=> this.next(), duration );
+    //     }
+    // }
+
+//         SiemaWithDots= function(options){
+//         this.interval=undefined;	
+//         };
+
+//         SiemaWithDots.prototype = {
+//         start:function(){
+//         var self=this;
+//         if (this.interval == undefined)
+//         this.interval=setInterval(function(){self.next()}, 100);
+//     },
+//         stop:function(){
+//         if (this.interval != undefined)
+//         {
+//         clearInterval(this.interval);
+//         this.interval = undefined;
+//     } 
+//   }
+// }
+
+
+
+    
+    // mySiemaWithDots.autoplay(4000,false);
+
+    
+
+
+</script>
+</html>
