@@ -86,10 +86,6 @@ class SiemaWithDots extends Siema {
         this.dots.appendChild(dot);
     }
 
-    function clearTimer(){
-        clearInterval(sliderTimer);
-        console.log("clear!")
-    }
 
     // add the container full of dots after selector
     this.selector.parentNode.insertBefore(this.dots, this.selector.nextSibling);
@@ -123,11 +119,81 @@ const mySlider = new SiemaWithDots({
     this.updateDots()
     },
     });
-
+autoplay();
 
 
 
 // Button
-console.log(document.querySelector('.btn-slider.pre'));
 document.querySelector('.btn-slider.pre').addEventListener('click', () => mySlider.prev());
 document.querySelector('.btn-slider.next').addEventListener('click', () => mySlider.next());
+
+
+function autoplay(){
+    const btn_pre = document.querySelector('.btn-slider.pre');
+    const btn_next = document.querySelector('.btn-slider.next');
+    const dot = document.querySelectorAll('.dots > .dots__item');
+    dot.forEach((e)=> e.addEventListener("click", ()=>{
+        paused = true;
+    }));
+    dot.forEach((e)=> e.addEventListener("blur", ()=>{
+        paused = false;
+    }));
+
+    var paused=false;
+    //SECTION AUTOPLAY
+    //ANCHOR OPTION 1 : recursive timeout ;NOTE: img hover transition time < timeout
+    setTimeout(function run(){
+        setTimeout(run,2000);
+        if(paused) return;
+        mySlider.next();
+    },2000);
+
+    //ANCHOR OPTION 2 : interval
+    // setInterval(()=>{
+    //     if(paused) return;
+    //     mySlider.next() },2000);
+
+    //!SECTION
+
+    btn_pre.addEventListener('click', () => {
+        paused = true;
+        mySlider.prev();
+    });
+    btn_pre.addEventListener('blur', () => 
+    {
+        paused = false;
+    });
+    btn_next.addEventListener('click', () => 
+    {
+        paused = true;
+        mySlider.next();
+    });
+    btn_next.addEventListener('blur', () => 
+    {
+        paused = false;
+    });
+    // btn_next.addEventListener('focus', ()=>{
+    //     clearInterval(sliderTimer);
+    // });
+
+    const img = document.querySelectorAll('#slider img');
+    
+    //SECTION IMG query select
+    // ANCHOR OPTION1: Select all
+    // img.forEach((e)=> console.log(e))
+
+    // ANCHOR OPTION2: Selectn't first and last 
+    for(let i  = 1; i < img.length-1; i++){
+        // console.log(img[i]);
+        img[i].addEventListener("mouseover", function(){ 
+            paused=true;
+        });
+
+        img[i].addEventListener("mouseout", function(){
+            //delay2s
+            // setTimeout(()=> paused =false, 2000);
+            paused = false;
+        });
+    }
+    //!SECTION
+    }

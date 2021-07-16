@@ -307,10 +307,10 @@ li > a:hover > span{
     display: block;
     width: 100%;
     object-fit: contain;
-    transition: transform 5s ease-in-out;
+    transition: transform 1s ease-in-out;
 }
 
-img:hover{
+#slider img:hover{
     transform: scale(1.5);
 }
 

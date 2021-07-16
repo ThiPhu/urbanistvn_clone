@@ -29,7 +29,7 @@
             height: 20rem;
             width: 100%;
             transform-origin: 50% 65%;
-            transition: transform 5s ease-in-out;
+            transition: transform 2s ease-in-out;
         }
 
          img:hover{
@@ -153,10 +153,6 @@
         this.dots.appendChild(dot);
     }
 
-    function clearTimer(){
-        clearInterval(sliderTimer);
-        console.log("clear!")
-    }
 
     // add the container full of dots after selector
     this.selector.parentNode.insertBefore(this.dots, this.selector.nextSibling);
@@ -182,6 +178,7 @@
     onInit: function(){
     this.addDots();
     this.updateDots();
+    
     },
 
     // on change trigger method created above
@@ -190,44 +187,77 @@
     },
     });
 
-    const sliderTimer= setInterval(()=> mySiemaWithDots.next(), 2000 )
+    autoplay();
+
+    function autoplay(){
     const btn_pre = document.querySelector('.btn-slider.pre');
     const btn_next = document.querySelector('.btn-slider.next');
     const dot = document.querySelectorAll('.dots > .dots__item');
     dot.forEach((e)=> e.addEventListener("click", ()=>{
-        clearInterval(sliderTimer);
+        paused = true;
+    }));
+    dot.forEach((e)=> e.addEventListener("blur", ()=>{
+        paused = false;
     }));
 
+    var paused=false;
+    //SECTION AUTOPLAY
+    //ANCHOR OPTION 1 : recursive timeout ;NOTE: img hover transition time < timeout
+    setTimeout(function run(){
+        setTimeout(run,2000);
+        if(paused) return;
+        mySiemaWithDots.next();
+    },2000);
+
+    //ANCHOR OPTION 2 : interval
+    // setInterval(()=>{
+    //     if(paused) return;
+    //     mySiemaWithDots.next() },2000);
+
+    //!SECTION
+
     btn_pre.addEventListener('click', () => {
+        paused = true;
         mySiemaWithDots.prev();
-        clearInterval(sliderTimer);
+    });
+    btn_pre.addEventListener('blur', () => 
+    {
+        paused = false;
     });
     btn_next.addEventListener('click', () => 
     {
+        paused = true;
         mySiemaWithDots.next();
-        clearInterval(sliderTimer);
+    });
+    btn_next.addEventListener('blur', () => 
+    {
+        paused = false;
     });
     // btn_next.addEventListener('focus', ()=>{
     //     clearInterval(sliderTimer);
     // });
 
     const img = document.querySelectorAll('.siema__img');
-    img.forEach((e)=>{
-        console.log(e)
-    })
     
-    //SECTION 
-    // ANCHOR Select all
+    //SECTION IMG query select
+    // ANCHOR OPTION1: Select all
     // img.forEach((e)=> console.log(e))
 
-    // ANCHOR Selectn't first and last 
+    // ANCHOR OPTION2: Selectn't first and last 
     for(let i  = 1; i < img.length-1; i++){
         // console.log(img[i]);
-        img[i].addEventListener("mouseover", function(){
-            clearInterval(sliderTimer);
+        img[i].addEventListener("mouseover", function(){ 
+            paused=true;
+        });
+
+        img[i].addEventListener("mouseout", function(){
+            //delay2s
+            // setTimeout(()=> paused =false, 2000);
+            paused = false;
         });
     }
     //!SECTION
+    }
 
 
     // SiemaWithDots.prototype.autoplay = function(duration=2000,reverse){
