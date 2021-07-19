@@ -32,16 +32,16 @@ const sbranch = document.querySelectorAll(".menu__subBranch");
 // })
 // });
 
-const bottom_nav = document.getElementById("bottom-nav-wrapper");
-const nav = document.getElementById("nav");
-console.log(nav.offsetHeight);
+const nav = document.getElementById("nav-wrapper");
+const header = document.getElementById("header");
+console.log(header.offsetHeight);
 let last_scroll = 0;
 window.addEventListener('scroll', function(){
     const curr_scroll = window.pageYOffset;
-    if(curr_scroll >=(nav.offsetHeight - bottom_nav.offsetHeight)){
-        bottom_nav.classList.add("fixed");
+    if(curr_scroll >=(header.offsetHeight - nav.offsetHeight)){
+        nav.classList.add("fixed");
     }else{
-        bottom_nav.classList.remove("fixed");
+        nav.classList.remove("fixed");
     }
 });
 
@@ -59,7 +59,13 @@ window.addEventListener('scroll', function(){
 
 //siema with dóts
 
-class SiemaWithDots extends Siema {
+class CustomizedSiema extends Siema {
+
+    constructor(options){
+        super(options);
+        this.paused = false;
+    }
+    
 
     addDots() {
     // create a contnier for all dots
@@ -77,9 +83,12 @@ class SiemaWithDots extends Siema {
 
         // add an event handler to each of them
         dot.addEventListener('click', ()=>{
-        // setInterval(function(){this.goTo(i)
-        // console.log("go to" + i)},5000);
+        this.paused = true;
         this.goTo(i);
+        })
+
+        dot.addEventListener('blur', ()=>{
+            this.paused = false;
         })
 
         // append dot to a container for all of them
@@ -99,19 +108,85 @@ class SiemaWithDots extends Siema {
         this.dots.querySelectorAll('button')[i].classList[addOrRemove]('dots__item--active');
     }
     }
+
+
+    addButton(){
+
+    this.btn_pre = document.createElement("button");
+    this.btn_next =  document.createElement("button");
+    this.btn_pre.classList.add("btn-slider","pre");
+    this.btn_next.classList.add("btn-slider","next");
+
+    this.btn_pre.addEventListener('click', () => {
+        this.paused = true;
+        this.prev();
+
+    });
+    this.btn_pre.addEventListener('blur', () => 
+    {
+        this.paused = false;
+    });
+    console.log("outter button",this.paused)
+    this.btn_next.addEventListener('click', () => 
+    {        
+        this.paused = true;
+        this.next();
+    });
+    this.btn_next.addEventListener('blur', () => 
+    {
+
+        this.paused = false;
+    });
+
+    this.selector.parentNode.insertBefore(this.btn_pre,null);
+    this.selector.parentNode.insertBefore(this.btn_next,null);
+
     }
 
+    autoSlide(interval){
 
-const mySlider = new SiemaWithDots({
+        setInterval(()=>{
+            if(this.paused) return;
+            this.next() },interval);
+
+        //Stop autoplay on hover img, reset when mouseout
+        const img = document.querySelectorAll(`#${this.selector.id} img`);
+        for(let i  = 1; i < img.length-1; i++){
+
+            img[i].addEventListener("mouseover",OnMouseOver.bind(this));
+                
+
+    
+            img[i].addEventListener("mouseout",OnMouseOut.bind(this));
+            // }
+        }
+
+                        
+        function OnMouseOver(){
+                this.paused = true;
+        }
+
+        function OnMouseOut(){
+                //delay2s
+                setTimeout(()=>this.paused = false, 2000); 
+        }
+    }
+}
+
+
+    const mySlider = new CustomizedSiema({
         selector: slider,
         loop:true,
-        duration: 500,
+        duration: 1000,
+        paused: false,
         easing: 'ease-in-out',
 
     // on init trigger method created above
     onInit: function(){
     this.addDots();
     this.updateDots();
+    this.addButton();
+    this.autoSlide(2000);
     },
 
     // on change trigger method created above
@@ -119,81 +194,3 @@ const mySlider = new SiemaWithDots({
     this.updateDots()
     },
     });
-autoplay();
-
-
-
-// Button
-document.querySelector('.btn-slider.pre').addEventListener('click', () => mySlider.prev());
-document.querySelector('.btn-slider.next').addEventListener('click', () => mySlider.next());
-
-
-function autoplay(){
-    const btn_pre = document.querySelector('.btn-slider.pre');
-    const btn_next = document.querySelector('.btn-slider.next');
-    const dot = document.querySelectorAll('.dots > .dots__item');
-    dot.forEach((e)=> e.addEventListener("click", ()=>{
-        paused = true;
-    }));
-    dot.forEach((e)=> e.addEventListener("blur", ()=>{
-        paused = false;
-    }));
-
-    var paused=false;
-    //SECTION AUTOPLAY
-    //ANCHOR OPTION 1 : recursive timeout ;NOTE: img hover transition time < timeout
-    setTimeout(function run(){
-        setTimeout(run,2000);
-        if(paused) return;
-        mySlider.next();
-    },2000);
-
-    //ANCHOR OPTION 2 : interval
-    // setInterval(()=>{
-    //     if(paused) return;
-    //     mySlider.next() },2000);
-
-    //!SECTION
-
-    btn_pre.addEventListener('click', () => {
-        paused = true;
-        mySlider.prev();
-    });
-    btn_pre.addEventListener('blur', () => 
-    {
-        paused = false;
-    });
-    btn_next.addEventListener('click', () => 
-    {
-        paused = true;
-        mySlider.next();
-    });
-    btn_next.addEventListener('blur', () => 
-    {
-        paused = false;
-    });
-    // btn_next.addEventListener('focus', ()=>{
-    //     clearInterval(sliderTimer);
-    // });
-
-    const img = document.querySelectorAll('#slider img');
-    
-    //SECTION IMG query select
-    // ANCHOR OPTION1: Select all
-    // img.forEach((e)=> console.log(e))
-
-    // ANCHOR OPTION2: Selectn't first and last 
-    for(let i  = 1; i < img.length-1; i++){
-        // console.log(img[i]);
-        img[i].addEventListener("mouseover", function(){ 
-            paused=true;
-        });
-
-        img[i].addEventListener("mouseout", function(){
-            //delay2s
-            // setTimeout(()=> paused =false, 2000);
-            paused = false;
-        });
-    }
-    //!SECTION
-    }

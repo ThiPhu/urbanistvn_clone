@@ -13,14 +13,40 @@
   <body>
     <p class="clock"></p>
     <script>
-      function displayTime() {
-        let date = new Date();
-        let time = date.toLocaleTimeString();
-        document.querySelector('.clock').textContent = time;
-      }
+class Test {
+  constructor() {
+    this.number = true;
+  }
 
-      displayTime();
-      const createClock = setInterval(displayTime, 1000);
+  test() {
+    function getFirstThis() {
+       return this;
+    }
+
+    const getSecondThis = () => {
+      this.number = false;
+       return this;
+    };
+
+    const getThirdThis = getFirstThis.bind(this);
+    
+    const $this = this;
+    function getFourthThis() {
+      return $this;
+    }
+
+    // undefined
+    console.log(getFirstThis());
+    
+    // All return "this" context, containing the number property
+    console.log(this); 
+    console.log(getSecondThis());
+    console.log(getThirdThis());
+    console.log(getFourthThis());
+  }
+}
+
+new Test().test();
     </script>
   </body>
 </html>
