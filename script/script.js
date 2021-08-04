@@ -153,6 +153,7 @@ class CustomizedSiema extends Siema {
         const img = document.querySelectorAll(`#${this.selector.id} img`);
         for(let i  = 1; i < img.length-1; i++){
 
+            //Bind function to this to access Class constructor's variables
             img[i].addEventListener("mouseover",OnMouseOver.bind(this));
                 
 
@@ -194,3 +195,18 @@ class CustomizedSiema extends Siema {
     this.updateDots()
     },
     });
+
+
+    // //Add css to i class grid
+    // const grid_items = document.querySelectorAll(".topic__body > a");
+    
+    // for(var i = 0 ;i < grid_items.length; i++){
+    //     grid_items[i].classList.add(`i`+(i+1))
+    // }
+
+    // console.log(grid_items);
+
+
+    // Resize author avatar image
+    const author_img = document.querySelectorAll(".author__avatar > img");
+    author_img.forEach((e)=> {e.style.height = '48px'; e.style.width = '48px'})
