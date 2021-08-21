@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="./assets/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500;700&display=swap" rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;500;700&display=swap" rel="stylesheet"> -->
+<link rel="stylesheet" href="./assets/beVietnam.css">
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
 </head>
@@ -39,8 +40,8 @@
                             <li class="top-header__item"><a href=""><i class="fas fa-heart fa-fw"></i> <span>Ủng hộ</span></a></li>
                         </ul>
                     </div>
-
-                    <div id="logo"><img src="./assets/images/logo.svg"></div>
+                    
+                    <div id="main-logo"><a href="/"><img src="./assets/images/logo.svg"></a></div>
                     <nav>
                         <div id="nav-wrapper" class="container" >
                             <ul id="nav" class="d-flex--center">
@@ -58,11 +59,6 @@
                                         <li class=""><a href="">Màn Ảnh</a></li>
                                         <li class=""><a href="">Văn Chương</a></li>
                                         <ul class=" menu__subBranch"><a href="">Thời Trang</a>
-                                            <li class="menu__leaf">Ton-sur-Ton</li>
-                                            <li class="menu__leaf">Ton-sur-Ton</li>
-                                            <li class="menu__leaf">Ton-sur-Ton</li>
-                                            <li class="menu__leaf">Ton-sur-Ton</li>
-                                            <li class="menu__leaf">Ton-sur-Ton</li>
                                             <li class="menu__leaf">Ton-sur-Ton</li>
                                         </ul>
                                     </ul>
@@ -100,26 +96,21 @@
             </header>
 
             <main>
-                <div id="content-top">
+                <section id="content-top">
                     <div class="container d-flex">
                         <section id="slider-wrapper">                        
                                 <div id="slider">
-                                    <a href=""><img src="./assets/slider_mock/1.jpg" alt=""></a>
-                                    <a href=""><img src="./assets/slider_mock/2.jpg" alt=""></a>
-                                    <a href=""><img src="./assets/slider_mock/3.jpg" alt=""></a>
-                                    <a href=""><img src="./assets/slider_mock/4.jpg" alt=""></a>
                                 </div>
                             </section>
 
-
-                            <div id="spotify-wrapper">
-                                    <div id="spotify">
-                                        <iframe src="https://open.spotify.com/embed/playlist/7EVPOpfFjPAoN2RbntRdUF?theme=0" width="100%" height="525" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
-                                        <a class="topic-navigate d-flex--center" href=""><span>Quãng 8 Playlist</span></a>
-                                    </div>
-                            </div>
+                        <section id="spotify-wrapper">
+                                <div id="spotify">
+                                    <iframe id="spotify-embeded" src="https://open.spotify.com/embed/playlist/7mUsgUU9NeOyYQMEiHMtnT" width="100%" height="100%" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                                    <a class="topic-navigate d-flex--center" href=""><span>Quãng 8 Playlist</span></a>
+                                </div>
+                        </section>
                     </div>
-                </div>
+                </section>
                 <div id="content-main">
                     <div class="container">
                         <div class="topic-wrapper">
@@ -136,9 +127,9 @@
                                                     <p><span>Karl Marx</span> - <span>Politics</span></p>
                                                 </div>   
                                             </div>
-                                            <div class="article__img">
-                                                <img src="./assets/images/article/a1.jpg" alt="">
-                                            </div>
+                                            <picture class="article__img">
+                                                <img src="./assets/images/article/a1 (Medium).jpg" alt="">
+                                            </picture>
                                             <div class="article__heading">
                                                 <h3 class="heading__title">Das Kapital</h3>
                                                 <p class="heading__subTitle">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores fugit tenetur, nam eaque tempora facere quasi, pariatur dolores exercitationem, autem minima illo corporis earum nostrum dignissimos corrupti dolor quam recusandae?</p>
@@ -168,25 +159,25 @@
                                         </article>
                                     </a>
 
-                                    <a href="" class="topic__article item3">
-                                        <article>
-                                            <div class="article__author">
-                                                <figure class="author__avatar">
-                                                    <img  src="./assets/images/avatar/Michael.jpg" alt="">
-                                                </figure>
-                                                <div class="author__about">
-                                                    <p><span>Michael Corleon</span> - <span>Fashion</span></p>
-                                                </div>   
-                                            </div>
-                                            <picture class="article__img">
-                                                <img src="./assets/images/article/a2.jpg" alt="">
-                                            </picture>
-                                            <div class="article__heading">
-                                                <h3 class="heading__title">How to dress properly?</h3>
-                                                <p class="heading__subTitle">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores fugit tenetur, nam eaque tempora facere quasi, pariatur dolores exercitationem, autem minima illo corporis earum nostrum dignissimos corrupti dolor quam recusandae?</p>
-                                            </div>
-                                        </article>
-                                    </a> 
+                                <a href="" class="topic__article item3">
+                                    <article>
+                                        <div class="article__author">
+                                            <figure class="author__avatar">
+                                                <img  src="./assets/images/avatar/Tommy.jpg" alt="">
+                                            </figure>
+                                            <div class="author__about">
+                                                <p><span>Tommy Shelby</span> - <span>Fashion</span></p>
+                                            </div>   
+                                        </div>
+                                        <picture class="article__img">
+                                            <img src="./assets/images/article/a10.jpg" alt="">
+                                        </picture>
+                                        <div class="article__heading">
+                                            <h3 class="heading__title">Dressing like a gangster</h3>
+                                            <p class="heading__subTitle">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores fugit tenetur, nam eaque tempora facere quasi, pariatur dolores exercitationem, autem minima illo corporis earum nostrum dignissimos corrupti dolor quam recusandae?</p>
+                                        </div>
+                                    </article>
+                                </a> 
                                     <a href="" class="topic__article item4">
                                         <article>
                                             <div class="article__author">

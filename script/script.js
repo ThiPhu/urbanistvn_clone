@@ -126,7 +126,6 @@ class CustomizedSiema extends Siema {
     {
         this.paused = false;
     });
-    console.log("outter button",this.paused)
     this.btn_next.addEventListener('click', () => 
     {        
         this.paused = true;
@@ -174,7 +173,7 @@ class CustomizedSiema extends Siema {
     }
 }
 
-
+function createSlider(){
     const mySlider = new CustomizedSiema({
         selector: slider,
         loop:true,
@@ -187,7 +186,7 @@ class CustomizedSiema extends Siema {
     this.addDots();
     this.updateDots();
     this.addButton();
-    this.autoSlide(2000);
+    // this.autoSlide(2000);
     },
 
     // on change trigger method created above
@@ -195,18 +194,65 @@ class CustomizedSiema extends Siema {
     this.updateDots()
     },
     });
+}
+
+    //Get latest aricle
+    const latest_article = document.querySelectorAll("#topic-latest .topic__article")
+    const latest_article_img = document.querySelectorAll("#topic-latest .topic__article .article__img > img")
+    const latest_article_heading = document.querySelectorAll("#topic-latest .topic__article .heading__title")
+    const latest_article_subheading = document.querySelectorAll("#topic-latest .topic__article .heading__subTitle")
+
+    const latest_article_collection = []
+    for(i =0; i < latest_article.length;i++){
+        const article_img_fixed = '.' + latest_article_img[i].src.slice(latest_article_img[i].src.indexOf('/',7)) ;
+        console.log(article_img_fixed)
+        const article = {"img": article_img_fixed, "heading": latest_article_heading[i].textContent, "subHeading": latest_article_subheading[i].textContent}
+        // console.log("article",article)
+        latest_article_collection.push(article)
+    }
+
+    //Push article to slider
+    latest_article_collection.forEach((article)=>{
+        const slider_template = document.createElement('a');
+        slider_template.classList.add("slider__article");
+        slider_template.innerHTML= `                               
+        <picture><img src=${article.img} alt="">
+        </picture>
+        <div class="article__heading">
+        <h3 class="heading__title">${article.heading}</h3>
+        <p class="heading__subTitle">${article.subHeading}</p>
+        </div>`
+        console.log(slider_template)
+        slider.appendChild(slider_template);
+    })
+
+     createSlider();
+
+    //Change spotify height 
+        function MinimizePlayer(){
+        const sputi = document.getElementById("spotify-embeded");
+        window.screen.width < 1023 ?
+        sputi.setAttribute("height",500) : sputi.setAttribute("height",'100%')
+        console.log(sputi.getAttribute('height'))
+        }
+
+        MinimizePlayer();
+        window.addEventListener('resize', MinimizePlayer);
+
+      
 
 
-    // //Add css to i class grid
-    // const grid_items = document.querySelectorAll(".topic__body > a");
-    
-    // for(var i = 0 ;i < grid_items.length; i++){
-    //     grid_items[i].classList.add(`i`+(i+1))
-    // }
-
-    // console.log(grid_items);
 
 
     // Resize author avatar image
     const author_img = document.querySelectorAll(".author__avatar > img");
     author_img.forEach((e)=> {e.style.height = '48px'; e.style.width = '48px'})
+
+
+    //Slider article
+    const slider__article = document.querySelectorAll(".slider__article");
+    slider__article.forEach((e)=>
+        {
+            
+        }
+    );
