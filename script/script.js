@@ -32,6 +32,22 @@ const sbranch = document.querySelectorAll(".menu__subBranch");
 // })
 // });
 
+// main-nav menu button animation
+const mainNav = document.getElementById("main-nav")
+mainNav.addEventListener('click',()=>{
+    // this.classList.toggle("open")
+    mainNav.classList.toggle("open")
+    overlay.classList.toggle("reaveal")
+    document.body.classList.toggle("no-scroll")
+})
+
+
+// overlay
+const overlay = document.getElementById("overlay")
+
+
+
+// Fixed nav on scroll
 const nav = document.getElementById("nav-wrapper");
 const header = document.getElementById("header");
 console.log(header.offsetHeight);

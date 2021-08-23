@@ -18,7 +18,7 @@
             <header id="header">
                 <div class="container__fluid">
                     <div id="top-header" class="d-flex">
-                        <ul id="top-header__left">
+                        <ul id="top-header__left" class="d-flex--center">
                             <li class="top-header__item menu__root"><a href="" id="item-UV"><span>UV,VN</span></a>
                                 <ul class="menu__branch">     
                                     <li><a href="" id="item-SE"><span>Saigoneer VN,EN</span></a></li>
@@ -28,7 +28,7 @@
                             </li>
                             <li id="top-header__search" class="top-header__item"><a href=""><i class="fas fa-search fa-fw"></i><span>Tìm kiếm</span></a></li>
                         </ul>
-                        <ul id="top-header__right">
+                        <ul id="top-header__right" class="d-flex--center">
                             <li class="top-header__item menu__root"><a href=""><i class="fas fa-thumbs-up fa-fw"></i> <span>Theo dõi</span></a>
                                 <ul class="menu__branch" id="menu_branch">
                                     <li> <a href=""><i class="fab fa-youtube fa-fw"></i><span>Youtube</span></a> </li>
@@ -41,7 +41,9 @@
                         </ul>
                     </div>
                     
-                    <div id="main-logo"><a href="/"><img src="./assets/images/logo.svg"></a></div>
+                    <div id="main-logo"><a href="/"><img src="./assets/images/logo.svg"></a>
+                        <div class="menu" id="main-nav"><span></span><span></span><span></span></div>
+                    </div>
                     <nav>
                         <div id="nav-wrapper" class="container" >
                             <ul id="nav" class="d-flex--center">
@@ -105,7 +107,7 @@
 
                         <section id="spotify-wrapper">
                                 <div id="spotify">
-                                    <iframe id="spotify-embeded" src="https://open.spotify.com/embed/playlist/7mUsgUU9NeOyYQMEiHMtnT" width="100%" height="100%" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                                    <iframe id="spotify-embeded" src="https://open.spotify.com/embed/playlist/7mUsgUU9NeOyYQMEiHMtnT?theme=0" width="100%" height="100%" frameBorder="0" allowtransparency="true" allow="encrypted-media"></iframe>
                                     <a class="topic-navigate d-flex--center" href=""><span>Quãng 8 Playlist</span></a>
                                 </div>
                         </section>
@@ -438,6 +440,35 @@
                                 </a>
                                 </div>
                             </section>
+                    </div>
+
+                    <div class="overlay" id="overlay">
+                        <nav class="overlay-menu">
+                            <div class="d-flex--center flex-row-rv" style="justify-content: space-around;">
+                                <ul id="top-header__left">
+                                    <li class=""><a href=""><i class="fas fa-heart fa-fw"></i> <span>Ủng hộ</span></a></li>
+                                    <li class=""><a href="" id="item-UV"><span>UV,VN</span></a>
+                                        <ul>     
+                                            <li><a href="" id="item-SE"><span>Saigoneer VN,EN</span></a></li>
+                                            <li><a href="" id="item-KR"><span>Saigoneer VN,KR</span></a></li>
+                                            <li><a href="" id="item-UHE"><span>Urbanist Hanoi,EN</span></a></li>
+                                        </ul>
+                                    </li>
+                                    <li id="top-header__search" class=""><a href=""><i class="fas fa-search fa-fw"></i><span>Tìm kiếm</span></a></li>
+                                </ul>
+                                <ul id="top-header__right">
+                                    <li class=""><a href=""><i class="fas fa-thumbs-up fa-fw"></i> <span>Theo dõi</span></a>
+                                        <ul>
+                                            <li> <a href=""><i class="fab fa-youtube fa-fw"></i><span>Youtube</span></a> </li>
+                                            <li> <a href=""><i class="fab fa-facebook-f fa-fw"></i><span>Facebook</span></a> </li>
+                                            <li> <a href=""><i class="fab fa-instagram fa-fw"></i><span>Instagram</span></a> </li>
+                                        </ul>
+                                    </li>
+                                    <li class=""><a href=""><i class="fas fa-envelope fa-fw"></i> <span>Đăng kí</span></a></li>
+                                    
+                                </ul>
+                            </div>
+                        </nav>
                     </div>
                 </div>
             </main>
