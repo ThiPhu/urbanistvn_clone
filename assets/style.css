@@ -9,6 +9,13 @@
 
 :root{
     --nav-secondary: #626262;
+    --topic-latest: #333333;
+    --topic-coop: #F1406C;
+    --topic-art: #E67472;
+    --topic-culinary: #1ABC9C;
+    --topic-life: #72C0C4;
+    --topic-travel: #177E5F;
+    --topic-heritage: #E7A652;
 }
 
 html{
@@ -38,7 +45,7 @@ h1{
     font-size: 3.2em;
 }
 /*  */
-.wrapper{
+.main-wrapper{
     overflow: hidden;
     min-width: 100%;
 }
@@ -255,10 +262,15 @@ li > a:hover > span{
     padding-bottom: 1rem;
 }
 
+#logo{
+    margin-top: 10px;
+}
+
 /* Main-logo menu */
 #main-logo > .menu{
     display: none;
     position: absolute;
+    font-size: .8em;
     right: 15px;
     width: 6em;
     height: 4.5em;
@@ -329,7 +341,6 @@ li > a:hover > span{
 #nav{
     margin: auto;
     padding-bottom: .8rem;
-    overflow-x: scroll;
 }
 
 /* hide scrollbar */
@@ -388,19 +399,19 @@ li > a:hover > span{
 
 
 #nav-art >.menu__branch{
-    background-color: #E67472;
+    background-color: var(--topic-art);
 }
 
 #nav-culinary > .menu__branch{
-    background-color: #1ABC9C;
+    background-color: var(--topic-culinary);
 }
 
 #nav-travel > .menu__branch{
-    background-color: #177E5F;
+    background-color: var(--topic-travel);
 }
 
 #nav-life > .menu__branch{
-    background-color: #72C0C4;
+    background-color: var(--topic-life);
 }
 
 /* #nav .menu__branch > *:hover{
@@ -460,7 +471,7 @@ li > a:hover > span{
     position: absolute;
     color: white;
     padding: 10px 40px 40px;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
 }
 
 #slider .heading__title{
@@ -512,6 +523,9 @@ li > a:hover > span{
 
 }
 
+.btn-slider:focus{
+    opacity: 1;
+}
     .btn-slider.pre{
         left: 0;
         
@@ -567,18 +581,61 @@ main{
     padding-bottom: 12rem;
 }
 
+/* Coloring topic */
+
 #topic-latest > .topic__header{
-    color: black;
+    color: var(--topic-latest);
 }
 
 #topic-coop > .topic__header{
-    color: #F1406C;
+    color:var(--topic-coop);
 }
 
-#topic-coop .topic__article{
-    border-top: 3px solid #F1406C;
+    #topic-coop .topic__article{
+        border-top: 3px solid var(--topic-coop);
+    }
+
+#topic-art > .topic__header{
+    color: var(--topic-art);
 }
 
+    #topic-art .topic__article{
+        border-top: 3px solid var(--topic-art);
+    }
+
+#topic-culinary > .topic__header{
+    color: var(--topic-culinary);
+}
+
+    #topic-culinary .topic__article{
+        border-top: 3px solid var(--topic-culinary);
+    }
+
+#topic-life > .topic__header{
+    color: var(--topic-life);
+}
+
+    #topic-life .topic__article{
+        border-top: 3px solid var(--topic-life);
+    }
+
+#topic-travel > .topic__header{
+    color: var(--topic-travel);
+}
+
+    #topic-travel .topic__article{
+        border-top: 3px solid var(--topic-travel);
+    }
+
+#topic-heritage > .topic__header{
+    color: var(--topic-heritage);
+}
+
+    #topic-heritage .topic__article{
+        border-top: 3px solid var(--topic-heritage);
+    }
+
+/* End Coloring topic */
 
 .topic-wrapper{
     padding: 3.2rem 0 ;
@@ -617,89 +674,37 @@ margin-bottom: .8rem ;
     }
 
     @media screen and (min-width: 800px) {
-    .layout_2-2-3 > .item1 {
+    .layout_2-2-3 > .topic__article:first-child {
         /* grid-area: 1/1/5/8; */
         grid-column: span 7/auto;
         }
         
-    .layout_2-2-3 > .item2{
+    .layout_2-2-3 > .topic__article:nth-child(2){
         /* grid-area: 1/8/5/13; */
         grid-column:  span 5/auto;
         }
 
-    .layout_2-2-3 > .item3{
+    .layout_2-2-3 > .topic__article:nth-child(3),
+    .layout_2-2-3 > .topic__article:nth-child(4){
         /* grid-area: 5/1/9/7; */
         grid-column: span 6/auto;
         /* grid-row: 2; */
     }
-    .layout_2-2-3 > .item4{
-        /* grid-area: 5/7/9/13; */
-        grid-column: span 6/ auto;
-        /* grid-row: 2; */
 
-    }
-
-    .layout_2-2-3 > .item5{
+    .layout_2-2-3 > .topic__article:nth-child(5),
+    .layout_2-2-3 > .topic__article:nth-child(6),
+    .layout_2-2-3 > .topic__article:last-child{
         /* grid-area: 9/1/13/5; */
         grid-column: span 4/ auto;
     }
     
-    .layout_2-2-3 > .item6{
-        /* grid-area: 9/5/13/9; */
-        grid-column: span 4/ auto;
-
-        
-    }
-    
-    .layout_2-2-3 > .item7{
-        /* grid-area: 9/9/13/13; */
-        grid-column: span 4/ auto;
-    }
-
-
-    .layout_4-3 > .item1{
+    .layout_4-3 > .topic__article{
         /* grid-area: 1/1/5/5; */
         grid-column: span 4/auto;
     }
-    .layout_4-3 > .item2{
-        /* grid-area: 1/5/5/9; */
-        grid-column: span 4/auto;
 
-    }
-    .layout_4-3 > .item3{
-        /* grid-area: 1/9/5/13; */
+    .layout_3 > .topic__article{
         grid-column: span 4/auto;
-
-    }
-    .layout_4-3 > .item4{
-        /* grid-area: 5/1/9/5; */
-        grid-column: span 4/auto;
-
-    }
-    .layout_4-3 > .item5{
-        /* grid-area: 5/5/9/9; */
-        grid-column: span 4/auto;
-
-    }
-    .layout_4-3 > .item6{
-        /* grid-area: 5/9/9/13; */
-        grid-column: span 4/auto;
-
-    }
-    .layout_4-3 > .item7{
-        /* grid-area: 9/1/13/5; */
-        grid-column: span 4/auto;
-
-    }
-    .layout_4-3 > .item8{
-        /* grid-area: 9/5/13/9; */
-        grid-column: span 4/auto;
-
-    }
-    .layout_4-3 > .item9{
-        /* grid-area: 9/9/13/13; */
-        grid-column: span 4/auto;
-
     }
 
 }
@@ -728,8 +733,6 @@ margin-bottom: .8rem ;
         grid-template-columns: repeat(auto-fit,minmax(42px,1fr));
     }
 
-
-
 }
 
 @media screen and (max-width:800px) {
@@ -740,14 +743,6 @@ margin-bottom: .8rem ;
 
 }
 
-
-
-
-
-
-
-    
-
     /* .g--4 */
 
 /* End grid */
@@ -757,10 +752,11 @@ position: relative;
 background-color: #72C0C4;
 min-height: 29em;
 border-radius: 2px;
-border-top: 3px solid #000 ;
+border-top: 2px solid #000 ;
 box-shadow: 1px 1px 5px rgb(0 0 0 / 15%);
 transition: all .2s ease-in-out;
 font-size: 2.8ch;
+cursor: pointer;
 }
 
     .topic__article:hover{
@@ -952,7 +948,7 @@ li a{
 
     /* Nav */
     .nav__item{
-        font-size: 1em;
+        font-size: 1.5em;
     }
 
     #main-logo img{
@@ -1010,12 +1006,11 @@ li a{
 }
 
 @media screen and (max-width:800px) {
-
     #top-header{
         display: none;
     }
     
-  #main-logo > #main-nav{
+     #main-logo > #main-nav{
         display:block;
     }
 
@@ -1024,4 +1019,12 @@ li a{
         padding: 0;
         margin: 0 10px;
     }
+}
+
+@media screen and (max-width:576px) {
+        /* Nav */
+        .nav__item{
+            font-size: 1em;
+        }
+    
 }
