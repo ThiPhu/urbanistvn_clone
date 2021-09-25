@@ -212,10 +212,7 @@ class CustomizedSiema extends Siema {
         topic_parent.addEventListener("click", e =>{
 
             // Get parent element ( a .topic__article) 
-            const topic__article =
-            e.target.offsetParent.className === "article__heading"?
-                e.target.offsetParent.offsetParent :
-                e.target.offsetParent
+            const topic__article = e.target
             // e.currentTarget.querySelector("a.topic__article")
 
             //Get article_Id attribute
