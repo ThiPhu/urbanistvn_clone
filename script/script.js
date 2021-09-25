@@ -56,7 +56,6 @@ class CustomizedSiema extends Siema {
         this.paused = false;
     }
     
-
     addDots() {
         // create a contnier for all dots
         // add a class 'dots' for styling reason
@@ -137,10 +136,16 @@ class CustomizedSiema extends Siema {
     }
 
     autoSlide(interval){
+        function sliderTimer(){ 
+                if(this.paused) return;
+                this.next()
+            }
 
-        setInterval(()=>{
-            if(this.paused) return;
-            this.next() },interval);
+        //Start or stop interval on window focus/blur
+        window.addEventListener("focus",()=> this.paused = false)
+        window.addEventListener("blur",()=> this.paused = true)
+
+        setInterval(sliderTimer.bind(this),interval)
 
         //Stop autoplay on hover img, reset when mouseout
         const img = document.querySelectorAll(`#${this.selector.id} img`);
@@ -190,9 +195,36 @@ class CustomizedSiema extends Siema {
         return mySlider
     }
 
-    articleLoaders();
+
+
+
+    articleLoaders();    
     sliderFiller();
     createSlider();
+
+    //handle article click event
+    const topic_parents = document.querySelectorAll('[id^="topic-"] .topic__body');
+    console.log(topic_parents);
+    for(var topic_parent of topic_parents){
+        console.log(topic_parent);
+
+        //event delegation
+        topic_parent.addEventListener("click", e =>{
+
+            // Get parent element ( a .topic__article) 
+            const topic__article =
+            e.target.offsetParent.className === "article__heading"?
+                e.target.offsetParent.offsetParent :
+                e.target.offsetParent
+            // e.currentTarget.querySelector("a.topic__article")
+
+            //Get article_Id attribute
+            const article_id = topic__article.dataset.articleid; 
+
+            console.log(article_id)
+        })
+        
+    }
 
 
 
