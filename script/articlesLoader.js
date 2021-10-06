@@ -1,7 +1,7 @@
 import {topics, articles, authors, tags } from "../data.js"
-// import { articleCreate } from "../Article_create/articleCreate.js"
+import { articleCreate } from "../Article_create/articleCreate.js"
 
- function articleLoaders(){
+function articleLoaders(){
     const topic_parent = document.getElementById("topic")
     const topic_translate = {'latest':'Mới nhất','coop':'Đồng sáng tạo','art':'Nghệ thuật','life':'Đời sống','culinary':'Ăn uống','heritage':'Di sản','travel':'Du lịch'}
     topics.forEach((topic)=>{

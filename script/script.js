@@ -1,4 +1,5 @@
 import articleLoaders from "./articlesLoader.js";
+import articleModalLoader from "./articleModalLoader.js";
 
 // main-nav menu button animation
 const mainNav = document.getElementById("main-nav")
@@ -201,27 +202,63 @@ class CustomizedSiema extends Siema {
     articleLoaders();    
     sliderFiller();
     createSlider();
+    showArticleDetailModal();
 
-    //handle article click event
-    const topic_parents = document.querySelectorAll('[id^="topic-"] .topic__body');
-    console.log(topic_parents);
-    for(var topic_parent of topic_parents){
-        console.log(topic_parent);
+    //Handle article click 
+    function showArticleDetailModal(){
+        const topic_parents = document.querySelectorAll('[id^="topic-"] .topic__body');
+        console.log(topic_parents);
+        for(var topic_parent of topic_parents){
+            console.log(topic_parent);
 
-        //event delegation
-        topic_parent.addEventListener("click", e =>{
+            //get its id when clicking an article
+            //event delegation
+            topic_parent.addEventListener("click", e =>{
+                console.log("CLICK",e.target);
+                // Get parent element ( a .topic__article) 
 
-            // Get parent element ( a .topic__article) 
-            const topic__article = e.target
-            // e.currentTarget.querySelector("a.topic__article")
+                //Option1: da hard way
 
-            //Get article_Id attribute
-            const article_id = topic__article.dataset.articleid; 
+                // const topic__article =
+                // e.target.offsetParent.className === "article__heading"?
+                //     e.target.offsetParent.offsetParent :
+                //     e.target.offsetParent
 
-            console.log(article_id)
-        })
-        
+                //Option2: Prevent pointer event of topic__article's children in css
+                const topic__article = e.target
+                // e.currentTarget.querySelector("a.topic__article")
+
+                //Get article_Id attribute
+                const article_id = topic__article.dataset.articleid; 
+                console.log(article_id);
+                const myPromise = new Promise((resolve)=>{
+                resolve(articleModalLoader(article_id));
+                })
+                myPromise.then( 
+                    closeModal
+                )
+
+                function closeModal(){
+                    const articleDetailModal = document.querySelector('.modal')
+                    articleDetailModal.addEventListener("click", (e)=>{
+                        console.log(e.target)
+                        if(e.target && e.target.id == "close-modal" || e.target.id == "backdrop"){
+                            articleDetailModal.parentNode.removeChild(articleDetailModal);
+                        }
+                    })
+                }
+            })
+        }
     }
+
+
+
+
+
+
+
+
+    //END - handle article click event
 
 
 

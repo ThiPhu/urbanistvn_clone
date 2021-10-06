@@ -1004,6 +1004,11 @@ li a{
     .brand-logo{
         max-width: 11rem !important;
     }
+
+    /* Spotify */
+    /* #spotify{ */
+
+    }
 }
 
 @media screen and (max-width:800px) {
